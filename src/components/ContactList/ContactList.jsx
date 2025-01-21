@@ -1,26 +1,19 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useMemo } from "react";
-import { deleteContact } from "../../redux/contactsSlice.js";
+import { deleteContact } from "../../redux/contactsOps"; // Використовуйте операцію для видалення
+import { selectFilteredContacts } from "../../redux/contactsSlice"; // Мемоізований селектор
 import s from "./ContactList.module.css";
 
-function ContactList() {
-  const contacts = useSelector((state) => state.contacts.items);
-  const filter = useSelector((state) => state.filters.name);
+const ContactList = () => {
   const dispatch = useDispatch();
+  const filteredContacts = useSelector(selectFilteredContacts); // Відфільтровані контакти
 
-  const visibleContacts = useMemo(() => {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }, [contacts, filter]);
-
-  if (visibleContacts.length === 0) {
+  if (!filteredContacts.length) {
     return <p className={s.message}>No contacts found.</p>;
   }
 
   return (
     <ul className={s.list}>
-      {visibleContacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <li key={id} className={s.item}>
           <p className={s.contactInfo}>
             <span className={s.contactName}>{name}:</span>{" "}
@@ -42,6 +35,6 @@ function ContactList() {
       ))}
     </ul>
   );
-}
+};
 
 export default ContactList;
