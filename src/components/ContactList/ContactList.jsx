@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contactsOps"; // Використовуйте операцію для видалення
-import { selectFilteredContacts } from "../../redux/contactsSlice"; // Мемоізований селектор
+import { deleteContact } from "../../redux/contactsOps";
+import { selectFilteredContacts } from "../../redux/contactsSlice";
 import s from "./ContactList.module.css";
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const filteredContacts = useSelector(selectFilteredContacts); // Відфільтровані контакти
+  const filteredContacts = useSelector(selectFilteredContacts);
 
   if (!filteredContacts.length) {
     return <p className={s.message}>No contacts found.</p>;

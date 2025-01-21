@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
-import { addContact } from "../../redux/contactsSlice";
 import s from "./ContactForm.module.css";
 
 function ContactsForm() {
@@ -32,7 +31,7 @@ function ContactsForm() {
       return;
     }
 
-    dispatch(addContact({ id: nanoid(), name, number }));
+    dispatch({ id: nanoid(), name, number });
     setFormState({ name: "", number: "" });
   };
 
